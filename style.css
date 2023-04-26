@@ -1,0 +1,16 @@
+body {
+    background-color: rgb(4, 50, 4);
+    
+}
+.baksida-kort{
+    width: 75%;
+    height: auto;
+    padding-top: 5vh;
+}
+.cards-rows{
+
+    display: flex;
+
+
+}
+

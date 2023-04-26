@@ -23,7 +23,6 @@ function sort(cardStack){
 }
 
 function removeZero(inputArray){
-   
     while (inputArray[0] == 0 && inputArray.length > 0){
         inputArray.shift()
     }
