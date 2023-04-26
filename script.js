@@ -1,6 +1,7 @@
-let arrayCards = [3,3,3,1]
-const maxAmountCards = 52
+let arrayCards = []
+//const maxAmountCards = 12
 
+//randomizeCardPlacement(maxAmountCards, arrayCards)
 
 function randomizeCardPlacement(amountOfCards, cardStack){
     let cardsLeft = amountOfCards + 1
@@ -22,17 +23,16 @@ function sort(cardStack){
 }
 
 function removeZero(inputArray){
-    let outputArray = inputArray;
-    for (let i = 0; i < inputArray.length; i++)
-        if (inputArray[0] == 0){
-            outputArray.shift();
-        }
-    return outputArray;
+   
+    while (inputArray[0] == 0 && inputArray.length > 0){
+        inputArray.shift()
+    }
+    return inputArray;
 }
 
 function didLoose(currentArray, allArrays){
     
-    if(currentArray.toString() == allArrays[allArrays.length - 2].toString()){ //funkar inte, måste checka manuellt
+    if(currentArray.toString() == allArrays[allArrays.length - 2].toString()){
         return true;
     } else {
         return false;
@@ -40,24 +40,51 @@ function didLoose(currentArray, allArrays){
 
 }
 
-//function didWin()
+function didWin(currentArray, allArrays){
+    for (let i = 0; i < allArrays.length; i++){
+        try {
+            if(currentArray.toString() === allArrays[i].toString() && currentArray.toString() !== allArrays[i+1].toString()) {
+                return true
+            }  
+        } catch (error) {
+            break
+        }
 
-//randomizeCardPlacement(maxAmountCards, arrayCards)
-
-
-running = true;
-let testedArrays = [[...arrayCards]];
-let currenIndex;
-while (running){
-    arrayCards = arrayCards.map(x => x-1);
-    arrayCards.push(arrayCards.length);
-    sort(arrayCards);
-    removeZero(arrayCards);
-    testedArrays.push(arrayCards);
-    console.log(arrayCards)
-    if (didLoose(arrayCards, testedArrays) == true ){
-        console.log("du förlorade");
-        running = false;
     }
+    return false
+
 }
 
+function onClick(){
+    let input = document.getElementById("input").value
+    let array = input.split(",")
+    run(array)
+}
+
+
+function run(arrayCards){
+    console.log(arrayCards)
+    running = true
+    let testedArrays = [[...arrayCards]];
+    while (running){
+        
+        arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
+        arrayCards.push(arrayCards.length); // add the new stack
+        sort(arrayCards);
+        removeZero(arrayCards);
+        testedArrays.push(arrayCards); // saving the current stacks
+        console.log(arrayCards);
+        if (didLoose(arrayCards, testedArrays)){
+            console.log("You lost");
+            running = false;
+        }
+        else if (didWin(arrayCards, testedArrays)){
+            console.log('You won');
+            running = false;
+        }
+        
+    }
+}
+    
+    
+    
