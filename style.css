@@ -1,16 +1,28 @@
+
 body {
     background-color: rgb(4, 50, 4);
-    
+     
 }
 .baksida-kort{
     width: 75%;
     height: auto;
-    padding-top: 5vh;
+    margin-bottom: -95%;
+    margin-top: 5%;
+    
+    
+    
 }
-.cards-rows{
-
+.cards{
     display: flex;
+    flex-direction: row;
+    
+    
+    
+}
 
-
+.cards-column{
+    display: flex;
+    flex-direction: column;
+    
 }
 
