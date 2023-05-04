@@ -57,12 +57,14 @@ function didWin(currentArray, allArrays){
 }
 
 function onClickSubmit(){
+    if (wonOrLost == false){
 
-    let input = document.getElementById("input").value
-    arrayCards = input.split(",")
-    testedArrays.push([...arrayCards]);
-    console.log(arrayCards)
-    addImages(arrayCards)
+        let input = document.getElementById("input").value
+        arrayCards = input.split(",")
+        testedArrays.push([...arrayCards]);
+        console.log(arrayCards)
+        addImages(arrayCards)
+    }
     
     
 }
@@ -117,11 +119,11 @@ function run(){
     addImages(arrayCards)
     
     if (didLoose(arrayCards, testedArrays)){
-        console.log("You lost");
+        console.log("Patiensen gick ut");
         wonOrLost = true
     }
     else if (didWin(arrayCards, testedArrays)){
-        console.log('You won');
+        console.log('Patiensen gick inte ut');
         wonOrLost = true
     }
         

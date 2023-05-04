@@ -1,13 +1,17 @@
 
 body {
-    background-color: rgb(4, 50, 4);
+    background: radial-gradient(rgb(0, 144, 0),rgb(0, 66, 0));
+    background-attachment: fixed;
      
 }
 .baksida-kort{
-    width: 75%;
+    
     height: auto;
-    margin-bottom: -100%;
-    margin-top: 5%;
+    align-self: center;
+    margin-bottom: -70%;
+    max-width: 60%;
+    
+    
     
     
     
@@ -15,6 +19,8 @@ body {
 .cards{
     display: flex;
     flex-direction: row;
+    margin-top: 20px;
+    justify-content: center;
     
     
     
@@ -23,6 +29,8 @@ body {
 .cards-column{
     display: flex;
     flex-direction: column;
+    width: 20%;
+    
     
 }
 
