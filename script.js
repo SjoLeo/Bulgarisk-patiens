@@ -1,4 +1,6 @@
-let arrayCards = []
+var arrayCards = []
+var testedArrays = [];
+var wonOrLost = false
 //const maxAmountCards = 12
 
 //randomizeCardPlacement(maxAmountCards, arrayCards)
@@ -54,35 +56,78 @@ function didWin(currentArray, allArrays){
 
 }
 
-function onClick(){
+function onClickSubmit(){
+
     let input = document.getElementById("input").value
-    let array = input.split(",")
-    run(array)
+    arrayCards = input.split(",")
+    testedArrays.push([...arrayCards]);
+    console.log(arrayCards)
+    addImages(arrayCards)
+    
+    
+}
+function onClickNext(){
+    if(wonOrLost == false){
+        run()
+    }
 }
 
+function onClickNewGame(){
+    arrayCards = []
+    testedArrays = []
+    wonOrLost = false
+    removeDivs()
+}
 
-function run(arrayCards){
-    console.log(arrayCards)
-    running = true
-    let testedArrays = [[...arrayCards]];
-    while (running){
-        
-        arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
-        arrayCards.push(arrayCards.length); // add the new stack
-        sort(arrayCards);
-        removeZero(arrayCards);
-        testedArrays.push(arrayCards); // saving the current stacks
-        console.log(arrayCards);
-        if (didLoose(arrayCards, testedArrays)){
-            console.log("You lost");
-            running = false;
+function removeDivs(){
+    const cardcontainer = document.getElementById("cardsid")
+
+    const divsToRemove = cardcontainer.querySelectorAll(".cards-column")
+
+    divsToRemove.forEach((div) => {div.remove()})
+}
+
+function addImages(cards){
+    removeDivs()
+    
+    // Loop through the array and create an img element for each element
+    for (let i = 0; i < cards.length; i++) {
+        const newDiv = document.createElement("div");
+        const cardcontainer = document.getElementById('cardsid')
+        newDiv.classList.add("cards-column")
+        cardcontainer.appendChild(newDiv);
+
+        for (let j = 0; j < cards[i]; j++) {
+            const newImg = document.createElement("img");
+            newImg.classList.add("baksida-kort")
+            newDiv.appendChild(newImg)
+            newImg.src = "card back orange.png"
         }
-        else if (didWin(arrayCards, testedArrays)){
-            console.log('You won');
-            running = false;
-        }
-        
     }
+}
+
+function run(){
+    
+    arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
+    arrayCards.push(arrayCards.length); // add the new stack
+    sort(arrayCards);
+    removeZero(arrayCards);
+    testedArrays.push([...arrayCards]); // saving the current stacks
+    console.log(arrayCards);
+    addImages(arrayCards)
+    
+    if (didLoose(arrayCards, testedArrays)){
+        console.log("You lost");
+        wonOrLost = true
+    }
+    else if (didWin(arrayCards, testedArrays)){
+        console.log('You won');
+        wonOrLost = true
+    }
+        
+        
+    
+
 }
     
     
