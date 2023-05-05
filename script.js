@@ -1,9 +1,10 @@
 var arrayCards = []
 var testedArrays = [];
 var wonOrLost = false
-//const maxAmountCards = 12
 
-//randomizeCardPlacement(maxAmountCards, arrayCards)
+const maxAmountCards = 12
+
+
 
 function randomizeCardPlacement(amountOfCards, cardStack){
     let cardsLeft = amountOfCards + 1
@@ -20,7 +21,7 @@ function randomizeCardPlacement(amountOfCards, cardStack){
 
 }
 
-function sort(cardStack){
+function sortCards(cardStack){
     cardStack = cardStack.sort(function (a, b) {  return a - b;  });
 }
 
@@ -57,14 +58,13 @@ function didWin(currentArray, allArrays){
 }
 
 function onClickSubmit(){
-    if (wonOrLost == false){
-
-        let input = document.getElementById("input").value
-        arrayCards = input.split(",")
-        testedArrays.push([...arrayCards]);
-        console.log(arrayCards)
-        addImages(arrayCards)
-    }
+    clear() // clears everything before submitting
+    let input = document.getElementById("input").value
+    arrayCards = input.split(",")
+    testedArrays.push([...arrayCards]);
+    console.log(arrayCards)
+    sortCards(arrayCards)
+    addImages(arrayCards)
     
     
 }
@@ -74,11 +74,17 @@ function onClickNext(){
     }
 }
 
-function onClickNewGame(){
+function clear(){ // clear everything
     arrayCards = []
     testedArrays = []
     wonOrLost = false
     removeDivs()
+}
+
+function onClickRandomize(){
+    clear()
+    document.getElementById('input').value = randomizeCardPlacement(maxAmountCards, arrayCards)
+    onClickSubmit()
 }
 
 function removeDivs(){
@@ -112,7 +118,7 @@ function run(){
     
     arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
     arrayCards.push(arrayCards.length); // add the new stack
-    sort(arrayCards);
+    sortCards(arrayCards);
     removeZero(arrayCards);
     testedArrays.push([...arrayCards]); // saving the current stacks
     console.log(arrayCards);
