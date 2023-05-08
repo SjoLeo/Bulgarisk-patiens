@@ -11,10 +11,22 @@ body {
     margin-bottom: -70%;
     max-width: 60%;
     
-    
-    
-    
-    
+}
+.youLoseImage{
+    width: 50%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.winImage{
+    width: 30%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .cards{
     display: flex;

@@ -1,23 +1,23 @@
-var arrayCards = []
+var arrayCards = [];
 var testedArrays = [];
-var wonOrLost = false
+var wonOrLost = false;
 
-const maxAmountCards = 12
+const maxAmountCards = 12;
 
 
 
 function randomizeCardPlacement(amountOfCards, cardStack){
-    let cardsLeft = amountOfCards + 1
+    let cardsLeft = amountOfCards + 1;
     while (cardsLeft > 1){
     
         var cardsInStack = Math.floor(Math.random() * cardsLeft);
         if (cardsInStack != 0){
 
-            cardStack.push(cardsInStack)
-            cardsLeft -= cardsInStack
+            cardStack.push(cardsInStack);
+            cardsLeft -= cardsInStack;
         }  
     }
-    return cardStack
+    return cardStack;
 
 }
 
@@ -27,12 +27,12 @@ function sortCards(cardStack){
 
 function removeZero(inputArray){
     while (inputArray[0] == 0 && inputArray.length > 0){
-        inputArray.shift()
+        inputArray.shift();
     }
     return inputArray;
 }
 
-function didLoose(currentArray, allArrays){
+function didLose(currentArray, allArrays){
     
     if(currentArray.toString() == allArrays[allArrays.length - 2].toString()){
         return true;
@@ -46,53 +46,62 @@ function didWin(currentArray, allArrays){
     for (let i = 0; i < allArrays.length; i++){
         try {
             if(currentArray.toString() === allArrays[i].toString() && currentArray.toString() !== allArrays[i+1].toString()) {
-                return true
+                return true;
             }  
         } catch (error) {
-            break
+            break;
         }
 
     }
-    return false
+    return false;
 
 }
 
 function onClickSubmit(){
-    clear() // clears everything before submitting
-    let input = document.getElementById("input").value
-    arrayCards = input.split(",")
+    clearBoard(); // clears everything before submitting
+    let input = document.getElementById("input").value;
+    arrayCards = input.split(",");
     testedArrays.push([...arrayCards]);
-    console.log(arrayCards)
-    sortCards(arrayCards)
-    addImages(arrayCards)
+    console.log(arrayCards);
+    sortCards(arrayCards);
+    addImages(arrayCards);
     
     
 }
 function onClickNext(){
-    if(wonOrLost == false){
-        run()
+    if(wonOrLost == false && arrayCards.toString() !== ""){
+        run();
     }
 }
 
-function clear(){ // clear everything
-    arrayCards = []
-    testedArrays = []
-    wonOrLost = false
-    removeDivs()
+function clearBoard(){ // clear everything
+    console.log('hej')
+    arrayCards = [];
+    testedArrays = [];
+    wonOrLost = false;
+    removeImg();
+    removeDivs();
+    
 }
 
 function onClickRandomize(){
-    clear()
-    document.getElementById('input').value = randomizeCardPlacement(maxAmountCards, arrayCards)
-    onClickSubmit()
+    clearBoard();
+    document.getElementById('input').value = randomizeCardPlacement(maxAmountCards, arrayCards);
+    onClickSubmit();
 }
 
 function removeDivs(){
-    const cardcontainer = document.getElementById("cardsid")
+    const cardcontainer = document.getElementById("cardsid");
 
-    const divsToRemove = cardcontainer.querySelectorAll(".cards-column")
+    const divsToRemove = cardcontainer.querySelectorAll(".cards-column");
 
-    divsToRemove.forEach((div) => {div.remove()})
+    divsToRemove.forEach((div) => {div.remove()});
+}
+
+function removeImg(){
+    const imgContainer = document.getElementById("messageBoxid");
+    const imgToRemove = imgContainer.querySelectorAll("img");
+    imgToRemove.forEach((img) => {img.remove()});
 }
 
 function addImages(cards){
@@ -101,18 +110,39 @@ function addImages(cards){
     // Loop through the array and create an img element for each element
     for (let i = 0; i < cards.length; i++) {
         const newDiv = document.createElement("div");
-        const cardcontainer = document.getElementById('cardsid')
-        newDiv.classList.add("cards-column")
+        const cardcontainer = document.getElementById('cardsid');
+        newDiv.classList.add("cards-column");
         cardcontainer.appendChild(newDiv);
 
         for (let j = 0; j < cards[i]; j++) {
             const newImg = document.createElement("img");
-            newImg.classList.add("baksida-kort")
-            newDiv.appendChild(newImg)
-            newImg.src = "card back orange.png"
+            newImg.classList.add("baksida-kort");
+            newDiv.appendChild(newImg);
+            newImg.src = "card back orange.png";
         }
     }
 }
+
+function endMessage(type){
+    
+    const newImg = document.createElement("img");
+    const winImgDiv = document.getElementById('messageBoxid');
+    if (type === "win"){
+    newImg.classList.add("winImage");
+    newImg.id = "endMessageId";
+    winImgDiv.appendChild(newImg);
+    newImg.src = "winImg.png";
+    } else {
+    newImg.classList.add("youLoseImage");
+    newImg.id = "endMessageId";
+    winImgDiv.appendChild(newImg);
+    newImg.src = "youLoseImg.png";
+    }
+    
+    
+}
+
+
 
 function run(){
     
@@ -124,13 +154,15 @@ function run(){
     console.log(arrayCards);
     addImages(arrayCards)
     
-    if (didLoose(arrayCards, testedArrays)){
+    if (didLose(arrayCards, testedArrays)){
         console.log("Patiensen gick ut");
-        wonOrLost = true
+        endMessage();
+        wonOrLost = true;
     }
     else if (didWin(arrayCards, testedArrays)){
         console.log('Patiensen gick inte ut');
-        wonOrLost = true
+        endMessage("win");
+        wonOrLost = true;
     }
         
         
