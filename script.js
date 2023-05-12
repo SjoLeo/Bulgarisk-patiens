@@ -1,8 +1,8 @@
 var arrayCards = [];
 var testedArrays = [];
 var wonOrLost = false;
-
-const maxAmountCards = 12;
+counter = 0;
+const maxAmountCards = 52;
 
 
 
@@ -71,14 +71,17 @@ function onClickSubmit(){
 function onClickNext(){
     if(wonOrLost == false && arrayCards.toString() !== ""){
         run();
+        counter++;
+        showTurns(counter)
     }
 }
 
 function clearBoard(){ // clear everything
-    console.log('hej')
     arrayCards = [];
     testedArrays = [];
     wonOrLost = false;
+    counter = 0;
+    showTurns(counter) 
     removeImg();
     removeDivs();
     
@@ -123,6 +126,11 @@ function addImages(cards){
     }
 }
 
+function showTurns(numberOfTurns){
+    textContainer = document.getElementById('turnAmountId')
+    textContainer.innerHTML = numberOfTurns
+}
+
 function endMessage(type){
     
     const newImg = document.createElement("img");
@@ -132,16 +140,22 @@ function endMessage(type){
     newImg.id = "endMessageId";
     winImgDiv.appendChild(newImg);
     newImg.src = "winImg.png";
+    console.log(counter+1)
     } else {
     newImg.classList.add("youLoseImage");
     newImg.id = "endMessageId";
     winImgDiv.appendChild(newImg);
     newImg.src = "youLoseImg.png";
+    console.log(counter+1)
     }
     
     
 }
 
+
+function startMenu(){
+
+}
 
 
 function run(){
@@ -156,17 +170,15 @@ function run(){
     
     if (didLose(arrayCards, testedArrays)){
         console.log("Patiensen gick ut");
-        endMessage();
+        endMessage("win");
         wonOrLost = true;
     }
     else if (didWin(arrayCards, testedArrays)){
         console.log('Patiensen gick inte ut');
-        endMessage("win");
+        endMessage();
         wonOrLost = true;
     }
         
-        
-    
 
 }
     

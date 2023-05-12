@@ -11,11 +11,12 @@
     
 </head>
 <body>
-    <input id="input" type="text" placeholder="ex. 1, 2, 3, 4">
-    <button onclick="onClickSubmit()">submit</button>
-    <button onclick="onClickNext()">next</button>
-    <button onclick="onClickRandomize()">Randomize</button>
-    <button onclick="clearBoard()">Clear Board</button>
+    <input class="button" id="input" type="text" placeholder="Ex. 1,2,3,4">
+    
+    <button class="button" onclick="onClickSubmit()">SUBMIT</button>
+    <button class="button" onclick="onClickNext()">NEXT</button>
+    <button class="button" onclick="onClickRandomize()">RANDOMIZE</button>
+    <button class="button" onclick="clearBoard()">CLEAR BOARD</button>
     
     <div class="cards" id="cardsid">
         
@@ -23,6 +24,10 @@
     
     <div class="messageBox" id="messageBoxid">
 
+    </div>
+
+    <div class="turnAmountBox" id="turnAmountId">
+        0
     </div>
 
 </body>

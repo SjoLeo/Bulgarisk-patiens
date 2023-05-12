@@ -2,7 +2,15 @@
 body {
     background: radial-gradient(rgb(0, 144, 0),rgb(0, 66, 0));
     background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
      
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 .baksida-kort{
     
@@ -10,8 +18,52 @@ body {
     align-self: center;
     margin-bottom: -70%;
     max-width: 60%;
+
+    transition: transform  1s;
     
 }
+
+.baksida-kort:hover{
+    transform: scale(105%);
+    
+}
+
+.turnAmountBox{
+    width: 10%;
+    height: 5%;
+    background-color: black;
+    border: solid white;
+    position: absolute;
+    top: 4.5%;
+    left: 92%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    
+    font-family: "LCD";
+    color: rgb(255, 82, 82);
+    text-align: center;
+    font-size: 200%;
+
+}
+@font-face {
+    font-family: LCD;
+    src: url('digital-7.ttf')
+
+}
+
+.button{
+    border-radius: 25px;
+    margin-left: 1%;
+    margin-top: 1%;
+    width: 14%;
+    height: 5%;
+    font-size: 110%;
+    background-color: black;
+    color: rgb(208, 169, 44);
+    border: solid white;
+    text-align: center;
+}
+
 .youLoseImage{
     width: 50%;
     height: auto;
