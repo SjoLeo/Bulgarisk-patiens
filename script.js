@@ -93,6 +93,19 @@ function onClickRandomize(){
     onClickSubmit();
 }
 
+function keyPress(){
+    window.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("submitButton").click();
+    }
+    if (event.key === "ArrowRight"){
+        event.preventDefault();
+        document.getElementById("nextButton").click();
+    }
+    });
+}
+
 function removeDivs(){
     const cardcontainer = document.getElementById("cardsid");
 
@@ -153,11 +166,6 @@ function endMessage(type){
 }
 
 
-function startMenu(){
-
-}
-
-
 function run(){
     
     arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
@@ -179,8 +187,8 @@ function run(){
         wonOrLost = true;
     }
         
-
 }
-    
+
+keyPress()
     
     
