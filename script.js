@@ -4,8 +4,12 @@ var wonOrLost = false;
 counter = 0;
 const maxAmountCards = 52;
 
-
-//Randomizes number of Cards and Stacks
+// Randomizes the number of Cards and Stacks
+// Input: 
+//  MaxAmountOfCards, is a constant number that determines the max amount of cards that can be generated for a single game.
+//  cardStack, number of stacks in play.
+// Return:
+//  Random number of stacks with a random number of cards generated. 
 function randomizeCardPlacement(MaxAmountOfCards, cardStack){
     let amountOfCards = Math.floor(Math.random() * (MaxAmountOfCards));
     amountOfCards++;
@@ -28,7 +32,11 @@ function sortCards(cardStack){
     cardStack = cardStack.sort(function (a, b) {  return a - b;  });
 }
 
-//Removes Zero (0) from 
+// Removes all empty stacks (zeros)
+// Input:
+//  inputArray, is an array of card stacks
+// Return:
+//  Return card stacks without any empty stacks (zeros)
 function removeZero(inputArray){
     while (inputArray[0] == 0 && inputArray.length > 0){
         inputArray.shift();
@@ -36,6 +44,12 @@ function removeZero(inputArray){
     return inputArray;
 }
 
+// Cheks if you have lost by comparing your current stacks of cards with the stacks of cards played right before.
+// Input:
+//  currentArray, your current Stacks of Cards.
+//  allArrays, all stacks of cards played, trough your game.
+// Return:
+//  True if you lost or false if you did not lose. 
 function didLose(currentArray, allArrays){
     
     if(currentArray.toString() == allArrays[allArrays.length - 2].toString()){
@@ -46,6 +60,12 @@ function didLose(currentArray, allArrays){
 
 }
 
+// Cheks if you have won by comparing your current stacks of cards with all stacks of cards played during your current game.
+// Input:
+//  currentArray, your current Stacks of Cards.
+//  allArrays, all stacks of cards played, trough your game.
+// Return:
+//  Returns true if you have won or false if the game continues.
 function didWin(currentArray, allArrays){
     for (let i = 0; i < allArrays.length; i++){
         try {
@@ -60,7 +80,7 @@ function didWin(currentArray, allArrays){
     return false;
 
 }
-
+// Starts a new game with a selected number of cards and stacks
 function onClickSubmit(){
     clearBoard(); // clears everything before submitting
     let input = document.getElementById("input").value;
@@ -74,6 +94,7 @@ function onClickSubmit(){
     
     
 }
+// The next turn is played
 function onClickNext(){
     if(wonOrLost == false && arrayCards.toString() !== ""){
         run();
@@ -92,13 +113,14 @@ function clearBoard(){ // clear everything
     removeDivs();
     
 }
-
+// Runs the "randomizeCardPlacement()" function when the button "Randomize" is used. It randomizes a number of cards and stacks.
 function onClickRandomize(){
     clearBoard();
     document.getElementById('input').value = randomizeCardPlacement(maxAmountCards, arrayCards);
     onClickSubmit();
 }
 
+// Shortcuts for a keyboard so you don't have to use the cursor or mouse.
 function keyPress(){
     window.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
@@ -112,7 +134,8 @@ function keyPress(){
     });
 
 }
-// Checks if the amunt of inputed Cards is over 52, and if so returns True, the input is not valid.
+
+// Check if the amount of input Cards is over 52 and if so update the submit button so that it will not be submit again until the number of cards is equal to or lower than 52.
 function invalidCardSize(){
     let inputValue = document.getElementById("input").value;
     let inputString = inputValue.replace(/[^0-9]+/g, ",").replace(/^,|,$/g, "");
@@ -168,11 +191,17 @@ function addImages(cards){
     }
 }
 
+//Shows how many turns have been played.
+// Input:
+//  numberOfTurns, how many turns each game has had.
 function showTurns(numberOfTurns){
     textContainer = document.getElementById('turnAmountId')
     textContainer.innerHTML = numberOfTurns
 }
 
+// Shows the end screen, that you have won or lost.
+// Input:
+//  type, is "win" or empty, empty meaning you have lost
 function endMessage(type){
     
     const newImg = document.createElement("img");
@@ -193,7 +222,7 @@ function endMessage(type){
     
     
 }
-
+// Main game function
 function run(){
     
     arrayCards = arrayCards.map(x => x-1); //remove one card from each stack
@@ -217,6 +246,4 @@ function run(){
         
 }
 
-keyPress()
-    
-    
+keyPress()    
