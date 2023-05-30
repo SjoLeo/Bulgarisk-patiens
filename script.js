@@ -5,8 +5,11 @@ counter = 0;
 const maxAmountCards = 52;
 
 
-
-function randomizeCardPlacement(amountOfCards, cardStack){
+//Randomizes number of Cards and Stacks
+function randomizeCardPlacement(MaxAmountOfCards, cardStack){
+    let amountOfCards = Math.floor(Math.random() * (MaxAmountOfCards));
+    amountOfCards++;
+    console.log(amountOfCards)
     let cardsLeft = amountOfCards + 1;
     while (cardsLeft > 1){
     
@@ -25,6 +28,7 @@ function sortCards(cardStack){
     cardStack = cardStack.sort(function (a, b) {  return a - b;  });
 }
 
+//Removes Zero (0) from 
 function removeZero(inputArray){
     while (inputArray[0] == 0 && inputArray.length > 0){
         inputArray.shift();
@@ -60,10 +64,12 @@ function didWin(currentArray, allArrays){
 function onClickSubmit(){
     clearBoard(); // clears everything before submitting
     let input = document.getElementById("input").value;
-    arrayCards = input.split(",");
+    let result = input.replace(/[^0-9]+/g, ",").replace(/^,|,$/g, "");
+    arrayCards = result.split(",");
+    sortCards(arrayCards)
+    removeZero(arrayCards)
+    console.log(arrayCards)
     testedArrays.push([...arrayCards]);
-    console.log(arrayCards);
-    sortCards(arrayCards);
     addImages(arrayCards);
     
     
@@ -104,6 +110,29 @@ function keyPress(){
         document.getElementById("nextButton").click();
     }
     });
+
+}
+// Checks if the amunt of inputed Cards is over 52, and if so returns True, the input is not valid.
+function invalidCardSize(){
+    let inputValue = document.getElementById("input").value;
+    let inputString = inputValue.replace(/[^0-9]+/g, ",").replace(/^,|,$/g, "");
+
+
+    let inputArrayNumber = inputString.split(',').map(Number); // funkar ej
+
+
+    let sum = inputArrayNumber.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+
+    if (sum > maxAmountCards){
+        document.querySelector('#submitButton').disabled = true;
+        document.getElementById('submitButton').style.border = "solid red"
+    }else{
+        document.querySelector('#submitButton').disabled = false;
+        document.getElementById('submitButton').style.border = "solid white"
+    }
 }
 
 function removeDivs(){
@@ -149,22 +178,21 @@ function endMessage(type){
     const newImg = document.createElement("img");
     const winImgDiv = document.getElementById('messageBoxid');
     if (type === "win"){
-    newImg.classList.add("winImage");
-    newImg.id = "endMessageId";
-    winImgDiv.appendChild(newImg);
-    newImg.src = "winImg.png";
-    console.log(counter+1)
-    } else {
-    newImg.classList.add("youLoseImage");
-    newImg.id = "endMessageId";
-    winImgDiv.appendChild(newImg);
-    newImg.src = "youLoseImg.png";
-    console.log(counter+1)
+        newImg.classList.add("winImage");
+        newImg.id = "endMessageId";
+        winImgDiv.appendChild(newImg);
+        newImg.src = "winImg.png";
+        console.log(counter+1)
+    }else {
+        newImg.classList.add("youLoseImage");
+        newImg.id = "endMessageId";
+        winImgDiv.appendChild(newImg);
+        newImg.src = "youLoseImg.png";
+        console.log(counter+1)
     }
     
     
 }
-
 
 function run(){
     
